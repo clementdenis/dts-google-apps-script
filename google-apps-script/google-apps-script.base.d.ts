@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2016-04-21
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -57,6 +57,8 @@ declare module GoogleAppsScript {
      * JdbcBlobA JDBC Blob.
      * 
      * JdbcClobA JDBC Clob.
+     * 
+     * PositionedImageFixed position image anchored to a Paragraph.
      * 
      * SpreadsheetThis class allows users to access and modify Google Sheets files.
      * 

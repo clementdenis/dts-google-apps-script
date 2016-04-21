@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2016-04-21
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,6 +10,12 @@
 
 declare module GoogleAppsScript {
   export module Spreadsheet {
+    /**
+     * Styles that can be set on a range using
+     *  Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
+     */
+    export enum BorderStyle { DOTTED, DASHED, SOLID }
+
     /**
      * The chart's position within a sheet.  Can be updated using the EmbeddedChart.modify()
      *  function.
@@ -463,6 +469,20 @@ declare module GoogleAppsScript {
     }
 
     /**
+     * Create, access and modify named ranges in a spreadsheet.
+     *  Named ranges are ranges that have associated string aliases.
+     *  They can be viewed and edited via the Sheets UI under the
+     *  Data > Named ranges... menu.
+     */
+    export interface NamedRange {
+      getName(): string;
+      getRange(): Range;
+      remove(): void;
+      setName(name: string): NamedRange;
+      setRange(range: Range): NamedRange;
+    }
+
+    /**
      * 
      * Deprecated. For spreadsheets created in the newer version of Google Sheets, use the more powerful
      *      Protection class instead. Although this class is deprecated, it will remain
@@ -539,6 +559,7 @@ declare module GoogleAppsScript {
       removeEditors(emailAddresses: String[]): Protection;
       setDescription(description: string): Protection;
       setDomainEdit(editable: boolean): Protection;
+      setNamedRange(namedRange: NamedRange): Protection;
       setRange(range: Range): Protection;
       setRangeName(rangeName: string): Protection;
       setUnprotectedRanges(ranges: Range[]): Protection;
@@ -599,6 +620,8 @@ declare module GoogleAppsScript {
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
       getDataValidation(): DataValidation;
       getDataValidations(): DataValidation[][];
+      getDisplayValue(): string;
+      getDisplayValues(): String[][];
       getFontColor(): string;
       getFontColors(): String[][];
       getFontFamilies(): String[][];
@@ -654,6 +677,7 @@ declare module GoogleAppsScript {
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
       setBackgrounds(color: String[][]): Range;
       setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): Range;
+      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean, color: string, style: BorderStyle): Range;
       setDataValidation(rule: DataValidation): Range;
       setDataValidations(rules: DataValidation[][]): Range;
       setFontColor(color: string): Range;
@@ -718,6 +742,7 @@ declare module GoogleAppsScript {
       getMaxColumns(): Integer;
       getMaxRows(): Integer;
       getName(): string;
+      getNamedRanges(): NamedRange[];
       getParent(): Spreadsheet;
       getProtections(type: ProtectionType): Protection[];
       getRange(row: Integer, column: Integer): Range;
@@ -728,6 +753,7 @@ declare module GoogleAppsScript {
       getSheetId(): Integer;
       getSheetName(): string;
       getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): Object[][];
+      getTabColor(): string;
       hideColumn(column: Range): void;
       hideColumns(columnIndex: Integer): void;
       hideColumns(columnIndex: Integer, numColumns: Integer): void;
@@ -764,6 +790,7 @@ declare module GoogleAppsScript {
       setFrozenRows(rows: Integer): void;
       setName(name: string): Sheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
+      setTabColor(color: string): Sheet;
       showColumns(columnIndex: Integer): void;
       showColumns(columnIndex: Integer, numColumns: Integer): void;
       showRows(rowIndex: Integer): void;
@@ -815,6 +842,7 @@ declare module GoogleAppsScript {
       getLastColumn(): Integer;
       getLastRow(): Integer;
       getName(): string;
+      getNamedRanges(): NamedRange[];
       getNumSheets(): Integer;
       getOwner(): Base.User;
       getProtections(type: ProtectionType): Protection[];
@@ -893,6 +921,7 @@ declare module GoogleAppsScript {
      *  the parent class for the Spreadsheet service.
      */
     export interface SpreadsheetApp {
+      BorderStyle: BorderStyle
       DataValidationCriteria: DataValidationCriteria
       ProtectionType: ProtectionType
       create(name: string): Spreadsheet;
